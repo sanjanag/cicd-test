@@ -19,6 +19,10 @@ jobs:
     if: needs.publish.result == 'success'
     runs-on: "ubuntu-latest"
     steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
       - name: create file
         run: touch dummy.txt
       - name: Commit and push
