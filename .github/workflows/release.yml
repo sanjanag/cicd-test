@@ -14,3 +14,19 @@ jobs:
       - name: publish
         if: github.repository == 'sanjanag/cicd-test' && github.event_name == 'release' && github.event.action == 'published'
         run : echo "Running publish action"
+  commit:
+    needs: [ publish-test ]
+    if: needs.publish.result == 'success'
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: create file
+        run: touch dummy.txt
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: main
+          commit_message: dummy commit
