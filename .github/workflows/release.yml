@@ -15,7 +15,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: before publish
-        run: echo "step before publishing
+        run: echo "step before publishing"
       - name: publish
         if: github.repository == 'sanjanag/cicd-test' && github.event.workflow_run.conclusion == 'success' && github.event_name == 'release' && github.event.action == 'published'
         run : echo "Running publish action"
