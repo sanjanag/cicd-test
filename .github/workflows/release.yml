@@ -1,0 +1,21 @@
+name: Release
+
+# This workflow will be triggered whenever the CI workflow is triggered in main branch is completed or a release is published
+on:
+  workflow_run:
+    workflows: [ "CI" ]
+    branches: [ main ]
+    types:
+      - completed
+  release:
+    types: [ published ]
+
+jobs:
+  publish-test:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: before publish
+        run: echo "step before publishing
+      - name: publish
+        if: github.repository == 'sanjanag/cicd-test' && github.event.workflow_run.conclusion == 'success' && github.event_name == 'release' && github.event.action == 'published'
+        run : echo "Running publish action"
