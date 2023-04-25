@@ -16,7 +16,7 @@ jobs:
         run : echo "Running publish action"
   commit:
     needs: [ publish-test ]
-    if: needs.publish.result == 'success'
+    if: needs.publish-test.result == 'success'
     runs-on: "ubuntu-latest"
     steps:
       - name: Checkout source
